@@ -339,7 +339,7 @@ footer{background:var(--ink);padding:48px 5% 28px}
           <input type="text" id="f-address" placeholder="الحي أو الشارع أو أقرب معلم" />
         </div>
         <div class="fg">
-          <label>🛒 الأدوية أو المنتجات المطلوبة <span style="color:var(--red)">*</span></label>
+          <label>🛒 الأدوية أو المنتجات المطلوبة <span style="color:var(--muted);font-weight:400">(اختياري)</span></label>
           <textarea id="f-items" placeholder="مثال: باراسيتامول 500 مج × 2 علبة، فيتامين د3، ..."></textarea>
         </div>
         <div class="fg">
@@ -359,8 +359,8 @@ footer{background:var(--ink);padding:48px 5% 28px}
             <div id="rx-fname"></div>
           </div>
           <div class="rx-notice">
-            <span>⚠️</span>
-            <span>بعد الضغط: <strong>سيتم تنزيل صورة الوصفة</strong> في هاتفك تلقائياً + فتح واتساب. أرسل النص ثم أرفق الصورة في نفس المحادثة.</span>
+            <span>📌</span>
+            <span>إذا رفعت وصفة طبية، <strong>يجب عليك إرسالها يدوياً في واتساب</strong> — بعد إرسال النص، أرفق صورة الوصفة من معرض هاتفك في نفس المحادثة حتى يتمكن الصيدلاني من مراجعتها.</span>
           </div>
         </div>
         <button class="btn-wa" onclick="sendOrder()">
@@ -467,7 +467,6 @@ function sendOrder() {
   const items   = document.getElementById('f-items').value.trim();
 
   if (!name || !phone) { alert('⚠️ يرجى إدخال الاسم ورقم الهاتف'); return; }
-  if (!items) { alert('⚠️ يرجى كتابة الأدوية أو المنتجات المطلوبة'); return; }
 
   // 1) If prescription attached — download it first
   if (rxDataUrl) {
@@ -484,7 +483,7 @@ function sendOrder() {
   msg += `📞 *الهاتف:* ${phone}\n`;
   if (address) msg += `📍 *العنوان:* ${address}\n`;
   msg += `━━━━━━━━━━━━━━━━━\n`;
-  msg += `🛒 *الطلب:*\n${items}\n`;
+  msg += `🛒 *الطلب:*\n${items || '(سيتم التوضيح عبر المحادثة)'}\n`;
   if (rxFileName) msg += `━━━━━━━━━━━━━━━━━\n📋 *الوصفة الطبية:* تم تنزيلها — سأرفقها الآن ✅\n`;
   msg += `⏰ ${new Date().toLocaleString('ar-SA')}`;
 
